@@ -333,7 +333,7 @@ var TG="bk_guru_mapel",TJ="bk_jadwal",LSK="bk_jd_cache_v1",LSKL="bk_jd_kelas",LS
 var HARI=["","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 var D={g:null,j:null,at:0,p:null,tab:"kelas",kelas:"",hari:0,guru:"",q:"",err:""};
 var st=document.createElement("style");
-st.textContent=".jd-now{background:#e8f5e9!important;font-weight:700}.jd-brk td{opacity:.65;font-style:italic;text-align:center}.jd-act td{background:#fff8e1}body.dark .jd-now{background:#1f3a26!important}body.dark .jd-act td{background:#332b14}#jdCard{padding:7px 10px}#jdCard .jd-top{display:flex;align-items:flex-start;gap:6px;margin-bottom:3px}#jdCard .jd-top b{flex:1;min-width:0;font-size:12.5px;line-height:1.3}#jdCard .jd-go{flex:none;height:24px;min-width:24px;padding:0 6px;font-size:12px;border-radius:12px}#jdCard select{flex:none;width:74px;padding:2px 4px;font-size:12.5px;height:28px;margin:0}#jdCard .jd-tri{flex:none;height:26px;min-width:26px;padding:0;font-size:11px;border-radius:50%}#jdCard .jd-now1{font-size:13px;line-height:1.3}#jdCard .jd-now1{font-size:14px;line-height:1.4}#jdCard details{margin-top:6px;font-size:12.5px}#jdCard details div{display:flex;gap:8px;padding:2px 0;border-bottom:1px dashed #8884}#jdCard details div b{min-width:34px}#jdCard details .on{background:#e8f5e9;font-weight:700}body.dark #jdCard details .on{background:#1f3a26}.jd-seg{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.jd-seg button{padding:5px 11px;border-radius:16px;border:1px solid #8886;background:transparent;color:inherit;font-size:12.5px;cursor:pointer}.jd-seg button.on{background:#1a73e8;color:#fff;border-color:#1a73e8}.jd-w{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}.jd-w label{font-size:12px;opacity:.8;display:block}.jd-w input,.jd-w select{width:100%}";
+st.textContent=".jd-now{background:#e8f5e9!important;font-weight:700}.jd-brk td{opacity:.65;font-style:italic;text-align:center}.jd-act td{background:#fff8e1}body.dark .jd-now{background:#1f3a26!important}body.dark .jd-act td{background:#332b14}#jdCard{padding:7px 10px}#jdCard .jd-top{display:flex;align-items:flex-start;gap:6px;margin-bottom:3px}#jdCard .jd-top b{flex:1;min-width:0;font-size:12.5px;line-height:1.3}#jdCard .jd-go{flex:none;height:24px;min-width:24px;padding:0 6px;font-size:12px;border-radius:12px}#jdCard select{flex:none;width:74px;padding:2px 4px;font-size:12.5px;height:28px;margin:0}#jdCard .jd-tri{flex:none;height:26px;min-width:26px;padding:0;font-size:11px;border-radius:50%}#jdCard .jd-badge{display:inline-block;background:#2e7d32;color:#fff;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:9px;vertical-align:1px;margin-left:2px}#jdCard .jd-sub{font-size:12px;opacity:.85;margin:0 0 4px}#jdCard .jd-now1{font-size:13px;line-height:1.3}#jdCard .jd-now1{font-size:14px;line-height:1.4}#jdCard details{margin-top:6px;font-size:12.5px}#jdCard details div{display:flex;gap:8px;padding:2px 0;border-bottom:1px dashed #8884}#jdCard details div b{min-width:34px}#jdCard details .on{background:#e8f5e9;font-weight:700}body.dark #jdCard details .on{background:#1f3a26}.jd-seg{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.jd-seg button{padding:5px 11px;border-radius:16px;border:1px solid #8886;background:transparent;color:inherit;font-size:12.5px;cursor:pointer}.jd-seg button.on{background:#1a73e8;color:#fff;border-color:#1a73e8}.jd-w{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}.jd-w label{font-size:12px;opacity:.8;display:block}.jd-w input,.jd-w select{width:100%}";
 document.head.appendChild(st);
 function canEdit(){var r=typeof rolEf=="function"?rolEf():(ST.user&&ST.user.role);return r==="admin"||r==="gurubk"}
 function S(v){return v==null?"":String(v).trim()}
@@ -529,22 +529,22 @@ function wRender(card,data,kelas){
 card._d={data:data,kelas:kelas};
 var h=jdHariIni(),rows=(data.j||[]).filter(function(r){return r.hari===h&&(r.kelas===kelas||r.kelas==="")}).sort(function(a,b){return a.urut-b.urut||a.id-b.id});
 D.g=data.g||D.g;D._ix=null;
-var nw=nowHM(),s=sekarang(rows,nw),off=card._off||0,head="Mapel sekarang",body="",idx=-1,f=s.cur||s.nxt;
+var nw=nowHM(),s=sekarang(rows,nw),off=card._off||0,head="Mapel Hari Ini",sub="",nowOn=false,body="",idx=-1,f=s.cur||s.nxt;
 if(f)for(var q=0;q<rows.length;q++)if(rows[q].id===f.id){idx=q;break}
 if(!h)body='<div class="hint">Hari ini tidak ada jadwal.</div>'+wSel(kelas);
 else if(!rows.length)body='<div class="hint">Belum ada jadwal '+esc(kelas)+" hari ini.</div>";
 else if(idx<0)body='<div class="jd-now1">✅ Pelajaran hari ini selesai</div>';
 else{if(idx+off>=rows.length)off=rows.length-1-idx;if(off<0)off=0;card._off=off;var t=idx+off,r=rows[t],brk=!r.kode&&r.kelas==="";
-head="Mapel sekarang ("+(brk?"istirahat":(r.jam!==""&&r.jam!=null?"jam ke-"+esc(r.jam):"kegiatan"))+", pukul "+esc(waktu(r))+")";
+nowOn=!!(s.cur&&r.id===s.cur.id);sub=(brk?"Istirahat":(r.jam!==""&&r.jam!=null?"Jam ke-"+esc(r.jam):"Kegiatan"))+", Pukul "+esc(waktu(r));
 body='<div style="display:flex;align-items:center;gap:6px"><select id="jdWK" onchange="JDX.wk(this.value)">'+kelasList().map(function(k){return'<option value="'+esc(k)+'"'+(k===kelas?" selected":"")+">"+esc(k)+"</option>"}).join("")+'</select><div class="jd-now1" style="flex:1;min-width:0">'+(brk?"<i>"+esc(r.ket||"Istirahat")+"</i>":descr(r))+"</div>"+(off>0?'<button class="btn2 btn-sm jd-tri" title="Sebelumnya" onclick="JDX.wn(-1)">◀</button>':"")+(t<rows.length-1?'<button class="btn2 btn-sm jd-tri" title="Selanjutnya" onclick="JDX.wn(1)">▶</button>':"")+"</div>"}
-card.innerHTML='<div class="jd-top"><b>\u{1F4C5} '+head+'</b><button class="btn2 jd-go" title="Buka jadwal lengkap" onclick="go(\'jadwal\')">Lihat</button></div>'+body}
+card.innerHTML='<div class="jd-top"><b>\u{1F4C5} '+head+(nowOn?' <span class="jd-badge">Sekarang</span>':"")+"</b>"+(off>0?'<button class="btn2 jd-go" title="Kembali ke mapel yang sedang berjalan" onclick="JDX.wr()">\u21BA Reset</button>':"")+'<button class="btn2 jd-go" title="Buka jadwal lengkap" onclick="go(\'jadwal\')">Lihat</button></div>'+(sub?'<div class="jd-sub">'+sub+"</div>":"")+body}
 function wKelas(){var l=kelasList(),k=lsGet(LSKL);if(l.indexOf(k)<0)k=(typeof kelasSaya=="function"&&kelasSaya().filter(function(x){return l.indexOf(x)>=0})[0])||l[0]||"";return k}
 function wDraw(card){var k=wKelas();if(!k){card.style.display="none";return}
 if(D.err==="belum"){card.style.display="none";return}
 wRender(card,{g:D.g||[],j:D.j||[]},k);card._k=k;
 if(D.j&&D.g)return;}
 function wLoad(card){var k=wKelas();if(!k)return;jdWidgetData(k).then(function(v){if(!card.isConnected)return;card.style.display="";wRender(card,v,k)}).catch(function(e){var m=String(e&&(e.message||e.code)||e);if(/relation|does not exist|schema cache|PGRST205|42P01/i.test(m)){D.err="belum";card.style.display="none"}else if(!D.j&&cacheRead()){wDraw(card)}else card.style.display="none"})}
-JDX.wk=function(v){lsPut(LSKL,v);D.kelas=v;var c=document.getElementById("jdCard");if(c){c._off=0;wLoad(c)}};JDX.wn=function(d){var c=document.getElementById("jdCard");if(c&&c._d){c._off=Math.max(0,(c._off||0)+d);wRender(c,c._d.data,c._d.kelas)}};
+JDX.wk=function(v){lsPut(LSKL,v);D.kelas=v;var c=document.getElementById("jdCard");if(c){c._off=0;wLoad(c)}};JDX.wr=function(){var c=document.getElementById("jdCard");if(c&&c._d){c._off=0;wRender(c,c._d.data,c._d.kelas)}};JDX.wn=function(d){var c=document.getElementById("jdCard");if(c&&c._d){c._off=Math.max(0,(c._off||0)+d);wRender(c,c._d.data,c._d.kelas)}};
 function wInsert(){var m=document.getElementById("main");if(!m||ST.page!=="dashboard")return true;if(!m.querySelector(".dash-card"))return false;
 var old=document.getElementById("jdCard");if(old)old.remove();
 var html='<div class="dash-card" id="jdCard" style="display:none"></div>';
@@ -556,6 +556,37 @@ if(u&&(u.role==="admin"||u.role==="gurubk"||u.role==="gurupiket")&&!(typeof mode
 return r};
 setInterval(function(){var c=document.getElementById("jdCard");if(c&&c.isConnected&&ST.page==="dashboard"&&document.visibilityState!=="hidden"&&c.style.display!=="none"){var k=c._k||wKelas();jdWidgetData(k).then(function(v){if(c.isConnected)wRender(c,v,k)}).catch(function(){})}},60000);
 window.__jd={parseJadwal:parseJadwal,parseGuru:parseGuru,D:D,buildAOA:buildAOA};
+})();
+</script>
+<script>(function(){
+/* ---- Dashboard guru piket: tombol tambah keterlambatan / perizinan ---- */
+var _rl=renderLayanan;
+renderLayanan=function(a){if(window.__dashAdd&&ST.page==="dashboard"){window.__dashAdd=0;renderDashboard();return}return _rl.apply(this,arguments)};
+window.pkTambah=function(a){window.__dashAdd=1;formLayanan(a)};
+var st=document.createElement("style");
+st.textContent="#pkBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}#pkBtns button{padding:11px 6px;font-size:13.5px;font-weight:700;border-radius:12px;line-height:1.25}";
+document.head.appendChild(st);
+function pkInsert(){var m=document.getElementById("main");if(!m||ST.page!=="dashboard")return true;var h=m.querySelector(".dash-head");if(!h)return false;
+var o=document.getElementById("pkBtns");if(o)o.remove();
+h.insertAdjacentHTML("afterend",'<div id="pkBtns"><button class="btn" onclick="pkTambah(\'terlambat\')">⏰ + Tambah Keterlambatan</button><button class="btn" onclick="pkTambah(\'izin\')">\u{1F6AA} + Tambah Perizinan</button></div>');return true}
+var _rd=renderDashboard,tk=0;
+renderDashboard=function(){var r=_rd.apply(this,arguments);
+if(ST.user&&ST.user.role==="gurupiket"){var my=++tk,i=0,iv=setInterval(function(){if(my!==tk||pkInsert()||++i>40)clearInterval(iv)},200)}
+return r};
+/* ---- Lain-Lain: jenis kegiatan ---- */
+var JENIS=["Konsultasi","Mediasi","Informasi","Advokasi","Orientasi","Penempatan & Penyaluran"],SENDIRI="__sendiri";
+function jenisPasang(){var inp=document.getElementById("f_Kegiatan");if(!inp||document.getElementById("f_KegJenis"))return;
+var v=String(inp.value||"").trim(),pre=JENIS.indexOf(v)>=0,cust=!!v&&!pre;
+var sel=document.createElement("select");sel.id="f_KegJenis";
+sel.innerHTML='<option value="">-- Pilih Jenis Kegiatan --</option>'+JENIS.map(function(j){return'<option value="'+esc(j)+'"'+(j===v?" selected":"")+">"+esc(j)+"</option>"}).join("")+'<option value="'+SENDIRI+'"'+(cust?" selected":"")+">Tulis sendiri…</option>";
+inp.parentNode.insertBefore(sel,inp);
+var lab=inp.parentNode.querySelector("label");if(lab&&/Nama Kegiatan/i.test(lab.textContent))lab.innerHTML=lab.innerHTML.replace("Nama Kegiatan","Nama / Jenis Kegiatan");
+inp.placeholder="Tulis jenis / nama kegiatan sendiri";inp.style.marginTop="6px";
+function sync(){var x=sel.value;if(x===SENDIRI){inp.style.display="";if(JENIS.indexOf(String(inp.value).trim())>=0)inp.value="";try{inp.focus()}catch(e){}}else{inp.style.display="none";inp.value=x}}
+sel.addEventListener("change",sync);
+if(cust){inp.style.display=""}else{inp.style.display="none";inp.value=v}}
+var _fk=formKegiatan;
+formKegiatan=function(a,t,e){var r=_fk.apply(this,arguments);if(a==="lainlain")jenisPasang();return r};
 })();
 </script>
 </body>
