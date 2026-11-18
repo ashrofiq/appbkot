@@ -1,6 +1,6 @@
 /* Service worker appBK otm — cache cadangan agar aplikasi tetap terbuka saat sinyal lemah.
    Cache dipisah per aplikasi (nama cache berbeda) sehingga dua aplikasi bisa dipasang bersamaan. */
-var CACHE="bk-otm-v1-5-94";
+var CACHE="bk-otm-v1-5-95";
 self.addEventListener("install",function(e){self.skipWaiting()});
 self.addEventListener("activate",function(e){
   e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k.indexOf("bk-otm-")===0&&k!==CACHE}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
